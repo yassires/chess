@@ -8,12 +8,17 @@ public class King {
         this.isWhite = isWhite;
     }
 
-    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol) {
+    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol, String[][] board) {
         int rowChange = Math.abs(newRow - currentRow);
         int colChange = Math.abs(newCol - currentCol);
 
-        return rowChange <= 1 && colChange <= 1;
+        if (rowChange > 1 || colChange > 1) {
+            return false;
+        }
+
+        return board[newRow][newCol].equals(" ") || (isWhite != Character.isUpperCase(board[newRow][newCol].charAt(0)));
     }
+
 
 }
 

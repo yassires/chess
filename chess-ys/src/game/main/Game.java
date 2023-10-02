@@ -187,15 +187,15 @@ public class Game {
             }
             case "Bishop" -> {
                 Bishop bishop = new Bishop(isWhiteTurn);
-                return bishop.isValidMove(fromRow, fromCol, toRow, toCol);
+                return bishop.isValidMove(fromRow, fromCol, toRow, toCol,board);
             }
             case "Queen" -> {
                 Queen queen = new Queen(isWhiteTurn);
-                return queen.isValidMove(fromRow, fromCol, toRow, toCol);
+                return queen.isValidMove(fromRow, fromCol, toRow, toCol,board);
             }
             case "King" -> {
                 King king = new King(isWhiteTurn);
-                return king.isValidMove(fromRow, fromCol, toRow, toCol);
+                return king.isValidMove(fromRow, fromCol, toRow, toCol,board);
             }
             default -> {
                 return false;
