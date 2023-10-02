@@ -16,8 +16,11 @@ public class King {
             return false;
         }
 
-        return board[newRow][newCol].equals(" ") || (isWhite != Character.isUpperCase(board[newRow][newCol].charAt(0)));
-    }
+        if (board[newRow][newCol].equals(" ") || (isWhite && Character.isLowerCase(board[newRow][newCol].charAt(0))) || (!isWhite && Character.isUpperCase(board[newRow][newCol].charAt(0)))) {
+            return true;
+        }
+
+        return false;    }
 
 
 }

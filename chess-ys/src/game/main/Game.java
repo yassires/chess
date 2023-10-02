@@ -122,9 +122,6 @@ public class Game {
                 continue;
             }
 
-            System.out.println("You selected a " + pieceType + " on the square.");
-
-
             System.out.print("Enter the destination square : ");
             String toSquare = scanner.nextLine();
 
