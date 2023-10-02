@@ -179,7 +179,7 @@ public class Game {
             }
             case "Rook" -> {
                 Rook rook = new Rook(isWhiteTurn);
-                return rook.isValidMove(fromRow, fromCol, toRow, toCol);
+                return rook.isValidMove(fromRow, fromCol, toRow, toCol,board);
             }
             case "Knight" -> {
                 Knight knight = new Knight(isWhiteTurn);
@@ -209,7 +209,6 @@ public class Game {
     public String getPieceType(int row, int col, boolean isWhiteTurn) {
         String piece = board[row][col];
         if (piece != null && !piece.trim().isEmpty()) {
-            String color = isWhiteTurn ? "White" : "Black";
             String type = "";
 
             switch (piece) {
