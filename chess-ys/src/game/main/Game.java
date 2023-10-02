@@ -78,22 +78,19 @@ public class Game {
         isWhiteTurn = true;
 
         while (true) {
-            displayBoard(); // Display the board before each player's turn
+            displayBoard();
 
             String playerColor = isWhiteTurn ? "White" : "Black";
             System.out.println(playerColor + " player's turn.");
 
-            // FromSquare
             System.out.print("Enter the move : ");
             String fromSquare = scanner.nextLine();
 
-            // Extract the row and column from 'fromSquare'
             int fromRow, fromCol;
             try {
                 char columnChar = fromSquare.charAt(0);
-                fromRow = Character.getNumericValue(fromSquare.charAt(1)) - 1; // Adjust for 0-based indexing
+                fromRow = Character.getNumericValue(fromSquare.charAt(1)) - 1;
 
-                // Map columnChar to column index
                 fromCol = switch (columnChar) {
                     case 'a' -> 0;
                     case 'b' -> 1;
@@ -106,34 +103,31 @@ public class Game {
                     default -> throw new IllegalArgumentException("Invalid column character.");
                 };
 
-                // Check if the extracted row and column values are within the valid range
                 if (!isValidSquare(fromRow, fromCol)) {
                     throw new IllegalArgumentException("Invalid row or column value.");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid square format. Please enter a valid square .");
-                continue; // Ask for input again
+                continue;
             }
 
-            // Now you have 'fromRow' and 'fromCol' representing the selected square
-            // Call the getPieceType method to identify the type of piece on that square
+
             String pieceType = getPieceType(fromRow, fromCol, isWhiteTurn);
 
             if ("Empty".equals(pieceType)) {
                 System.out.println("The selected square is empty. Please choose a square with a chess piece.");
-                continue; // Ask for input again
+                continue;
             } else if ("Opponent's Piece".equals(pieceType)) {
                 System.out.println("You can only move your own pieces.");
-                continue; // Ask for input again
+                continue;
             }
 
             System.out.println("You selected a " + pieceType + " on the square.");
 
-            // ToSquare
+
             System.out.print("Enter the destination square : ");
             String toSquare = scanner.nextLine();
 
-            // Extract the row and column from 'toSquare'
             int toRow, toCol;
             try {
                 char columnChar = toSquare.charAt(0);
@@ -152,13 +146,12 @@ public class Game {
                     default -> throw new IllegalArgumentException("Invalid column character.");
                 };
 
-                // Check if the extracted row and column values are within the valid range
                 if (!isValidSquare(toRow, toCol)) {
                     throw new IllegalArgumentException("Invalid row or column value.");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid square format. Please enter a valid square .");
-                continue; // Ask for input again
+                continue;
             }
 
             boolean isValidMove = isValidMove(fromRow, fromCol, toRow, toCol, pieceType);
@@ -205,7 +198,7 @@ public class Game {
                 return king.isValidMove(fromRow, fromCol, toRow, toCol);
             }
             default -> {
-                return false; // Unknown piece type or invalid move
+                return false;
             }
         }
     }
@@ -213,13 +206,19 @@ public class Game {
 
 
 
-    public String getPieceType(int row, int col) {
+    public String getPieceType(int row, int col, boolean isWhiteTurn) {
         String piece = board[row][col];
         if (piece != null && !piece.trim().isEmpty()) {
-            String color = Character.isUpperCase(piece.charAt(0)) ? "White" : "Black";
+            String color = isWhiteTurn ? "White" : "Black";
             String type = "";
 
-            switch (piece.toUpperCase()) {
+            switch (piece) {
+                case "♙": type = "Pawn"; break;
+                case "♖": type = "Rook"; break;
+                case "♘": type = "Knight"; break;
+                case "♗": type = "Bishop"; break;
+                case "♕": type = "Queen"; break;
+                case "♔": type = "King"; break;
                 case "♟": type = "Pawn"; break;
                 case "♜": type = "Rook"; break;
                 case "♞": type = "Knight"; break;
@@ -229,10 +228,14 @@ public class Game {
                 default: type = "Unknown";
             }
 
-            return color + " " + type;
+            return type;
         }
         return "Empty";
     }
+
+
+
+
 
 
 

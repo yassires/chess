@@ -9,7 +9,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("--------------------------------------------------Chess-------------------------------------------------------------");
+            System.out.println("-----------------------Chess-----------------------");
             System.out.println("1) Start the Game");
             System.out.println("2) Exit");
             System.out.println("Pick a choice: ");
