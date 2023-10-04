@@ -1,5 +1,6 @@
 package game.pieces;
 
+import game.main.Game;
 
 public class Rook {
     private boolean isWhite;
@@ -12,33 +13,33 @@ public class Rook {
         int rowChange = Math.abs(newRow - currentRow);
         int colChange = Math.abs(newCol - currentCol);
 
-        if (rowChange != 0 && colChange != 0) {
-            return false;
-        }
+        boolean isVerticalMove = rowChange != 0 && colChange == 0;
+        boolean isHorizontalMove = rowChange == 0 && colChange != 0;
 
-        if (rowChange == 0) {
-            int step = (newCol > currentCol) ? 1 : -1;
-            for (int col = currentCol + step; col != newCol; col += step) {
-                if (!board[currentRow][col].equals(" ")) {
-                    return false;
-                }
-            }
-        } else {
+        boolean isTargetSquareEmpty = board[newRow][newCol].equals(" ");
+
+        if (isVerticalMove) {
             int step = (newRow > currentRow) ? 1 : -1;
             for (int row = currentRow + step; row != newRow; row += step) {
                 if (!board[row][currentCol].equals(" ")) {
                     return false;
                 }
             }
+        } else if (isHorizontalMove) {
+            int step = (newCol > currentCol) ? 1 : -1;
+            for (int col = currentCol + step; col != newCol; col += step) {
+                if (!board[currentRow][col].equals(" ")) {
+                    return false;
+                }
+            }
         }
 
+        boolean isOpponentPiece = isWhite ? Character.isUpperCase(Game.getPieceType(newRow,newCol).charAt(0)) :
+                Character.isLowerCase(Game.getPieceType(newRow,newCol).charAt(0));
 
-        if (board[newRow][newCol].equals(" ") || (isWhite && Character.isLowerCase(board[newRow][newCol].charAt(0))) || (!isWhite && Character.isUpperCase(board[newRow][newCol].charAt(0)))) {
-            return true;
-        }
+        return (isVerticalMove || isHorizontalMove) && (isTargetSquareEmpty || isOpponentPiece);
 
-        return false;
+
     }
 
 }
-

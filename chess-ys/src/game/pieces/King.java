@@ -20,8 +20,7 @@ public class King {
             return true;
         }
 
-        return false;    }
-
-
+        return false;
+    }
 }
 

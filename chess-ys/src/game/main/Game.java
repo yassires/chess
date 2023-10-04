@@ -6,7 +6,7 @@ import game.pieces.*;
 import java.util.Scanner;
 
 public class Game {
-    private String[][] board;
+    private static String[][] board;
     private boolean isWhiteTurn;
 
     public Game() {
@@ -112,7 +112,7 @@ public class Game {
             }
 
 
-            String pieceType = getPieceType(fromRow, fromCol, isWhiteTurn);
+            String pieceType = getPieceType(fromRow, fromCol);
 
             if ("Empty".equals(pieceType)) {
                 System.out.println("The selected square is empty. Please choose a square with a chess piece.");
@@ -170,31 +170,37 @@ public class Game {
 
     private boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol, String pieceType) {
         switch (pieceType) {
-            case "Pawn" -> {
+            case "Pawn":
+            case "pawn": {
                 Pawn pawn = new Pawn(isWhiteTurn);
-                return pawn.isValidMove(fromRow, fromCol, toRow, toCol, board);
+                return pawn.isValidMove(fromRow, fromCol, toRow, toCol, board,pieceType);
             }
-            case "Rook" -> {
+            case "Rook" :
+            case "rook" :{
                 Rook rook = new Rook(isWhiteTurn);
                 return rook.isValidMove(fromRow, fromCol, toRow, toCol,board);
             }
-            case "Knight" -> {
+            case "Knight" :
+            case "knight" :{
                 Knight knight = new Knight(isWhiteTurn);
-                return knight.isValidMove(fromRow, fromCol, toRow, toCol, board);
+                return knight.isValidMove(fromRow, fromCol, toRow, toCol, board,pieceType);
             }
-            case "Bishop" -> {
+            case "Bishop" :
+            case "bishop" :{
                 Bishop bishop = new Bishop(isWhiteTurn);
                 return bishop.isValidMove(fromRow, fromCol, toRow, toCol,board);
             }
-            case "Queen" -> {
+            case "Queen" :
+            case "queen" :{
                 Queen queen = new Queen(isWhiteTurn);
                 return queen.isValidMove(fromRow, fromCol, toRow, toCol,board);
             }
-            case "King" -> {
+            case "King" :
+            case "king" :{
                 King king = new King(isWhiteTurn);
                 return king.isValidMove(fromRow, fromCol, toRow, toCol,board);
             }
-            default -> {
+            default : {
                 return false;
             }
         }
@@ -203,18 +209,18 @@ public class Game {
 
 
 
-    public String getPieceType(int row, int col, boolean isWhiteTurn) {
+    public static String getPieceType(int row, int col) {
         String piece = board[row][col];
         if (piece != null && !piece.trim().isEmpty()) {
             String type = "";
 
             switch (piece) {
-                case "♙": type = "Pawn"; break;
-                case "♖": type = "Rook"; break;
-                case "♘": type = "Knight"; break;
-                case "♗": type = "Bishop"; break;
-                case "♕": type = "Queen"; break;
-                case "♔": type = "King"; break;
+                case "♙": type = "pawn"; break;
+                case "♖": type = "rook"; break;
+                case "♘": type = "knight"; break;
+                case "♗": type = "bishop"; break;
+                case "♕": type = "queen"; break;
+                case "♔": type = "king"; break;
                 case "♟": type = "Pawn"; break;
                 case "♜": type = "Rook"; break;
                 case "♞": type = "Knight"; break;
