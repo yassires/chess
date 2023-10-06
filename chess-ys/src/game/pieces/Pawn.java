@@ -9,7 +9,7 @@ public class Pawn {
         this.isWhite = isWhite;
     }
 
-    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol, String[][] board, String pieceType) {
+    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol, String[][] board) {
         int rowChange = newRow - currentRow;
         int colChange = Math.abs(newCol - currentCol);
         if (isWhite) {

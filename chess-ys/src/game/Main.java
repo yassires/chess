@@ -24,7 +24,7 @@ public class Main {
                     game.startNewGame();
                     break;
                 case 2:
-                    System.out.println("End of Game.");
+                    System.out.println("End of the Game.");
                     scanner.close();
                     System.exit(0);
                     break;
